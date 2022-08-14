@@ -1,0 +1,42 @@
+-- cmd/sample/main.go --
+package main
+
+import (
+	"fmt"
+
+	"example.com/sample"
+)
+
+func main() {
+	fmt.Println(sample.Explain())
+}
+-- go.mod --
+module example.com/sample
+
+go 1.19
+
+-- sample.go --
+package sample
+
+func Explain() string {
+	return "generated code for package sample."
+}
+-- sample_test.go --
+package sample_test
+
+import (
+	"testing"
+
+	"example.com/sample"
+)
+
+func TestExplain(t *testing.T) {
+	t.Parallel()
+
+	want := "generated code for package sample."
+	got := sample.Explain()
+
+	if got != want {
+		t.Errorf("want: %s, got: %s", want, got)
+	}
+}
