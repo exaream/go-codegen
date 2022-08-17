@@ -1,10 +1,13 @@
 package generator_test
 
 import (
+	"bytes"
 	"embed"
+	"errors"
 	"flag"
 	"io"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
@@ -89,5 +92,41 @@ func TestGenerator(t *testing.T) {
 
 	if diff := golden.Diff(t, goldenDir, module, got); diff != "" {
 		t.Error(diff)
+	}
+
+	runGoModTidy(t, moduleOutputDir)
+
+	runTest(t, "", moduleOutputDir)
+
+}
+
+func runGoModTidy(t *testing.T, dir string) {
+	t.Helper()
+	var stderr bytes.Buffer
+	cmd := exec.Command("go", "mod", "tidy")
+	cmd.Dir = dir
+	cmd.Stderr = &stderr
+
+	t.Log("dir:  ", dir)
+	t.Log("exec: ", cmd)
+
+	if err := cmd.Run(); err != nil {
+		t.Fatalf("go mod tidy: unexpected error: %s with:\n%s", err, &stderr)
+	}
+}
+
+func runTest(t *testing.T, name, dir string) {
+	t.Helper()
+	var stdout, stderr bytes.Buffer
+	cmd := exec.Command("go", "test")
+	cmd.Dir = dir
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+
+	t.Log("dir:  ", dir)
+	t.Log("exec: ", cmd)
+
+	if err := cmd.Run(); err != nil && !errors.As(err, new(*exec.ExitError)) {
+		t.Fatal("unexpected error:", err)
 	}
 }
