@@ -96,8 +96,7 @@ func TestGenerator(t *testing.T) {
 
 	runGoModTidy(t, moduleOutputDir)
 
-	runTest(t, "", moduleOutputDir)
-
+	runTest(t, moduleOutputDir)
 }
 
 func runGoModTidy(t *testing.T, dir string) {
@@ -115,7 +114,7 @@ func runGoModTidy(t *testing.T, dir string) {
 	}
 }
 
-func runTest(t *testing.T, name, dir string) {
+func runTest(t *testing.T, dir string) {
 	t.Helper()
 	var stdout, stderr bytes.Buffer
 	cmd := exec.Command("go", "test")
