@@ -1,0 +1,55 @@
+run:
+  go: 1.19
+linters:
+  disable-all: true
+  enable:
+    - asciicheck # For ensuring that non-ASCII identifiers are not included. 
+    - deadcode # For detecting unused declarations.
+    - depguard # For checking whether package imports are in a list of acceptable packages.
+    - dogsled # For finding assignments/declarations with too many blank identifiers.
+    - dupl # For finding code clones.
+    - errcheck # For checking for unchecked errors.
+    - exportloopref # For finding exporting pointers for loop variables.
+    - funlen # For checking for long functions.
+    - goconst # For finding repeated strings that could be replaced by a constant.
+    - gocyclo # For calculating cyclomatic complexities.
+    - gofmt # For formatting.
+    - goimports # For updating your Go import lines, adding missing ones and removing unreferenced ones.
+    - gomnd # For detecting magic numbers.
+    - goprintffuncname # For checking that printf-like functions are named with f at the end.
+    - gosec # For inspecting source code for security problems by scanning the Go AST.
+    - gosimple # For simplifying a code.
+    - govet # For reporting suspicious constructs, such as Printf calls whose arguments do not align with the format string
+    - ineffassign # For detecting ineffectual assignments.
+    - lll # For enforcing line length in files.
+    - misspell # For correcting commonly misspelled English words.
+    - nakedret # For finding naked returns in functions greater than a specified function length.
+    - noctx # For finding sending http request without context.Context.
+    - nolintlint # For finding ill-formed or insufficiently explained // nolint directives for golangci
+    - prealloc # For finding slice declarations that could potentially be preallocated.
+    - staticcheck # For fiding bugs and performance issues, offers simplifications, and enforces style rules.
+    - stylecheck # For enforcing style rules.
+    - typecheck # For checking type.
+    - unconvert # For identifying unnecessary type conversions.
+    - unparam # For finding unused function parameters.
+    - unused # For finding unused constants, variables, functions and types.
+    - varcheck # For finding unused global variables and constants.
+    - whitespace # For checking for unnecessary newlines at the start and end of functions, if, for, etc.
+
+  # don't enable:
+  # - scopelint
+  # - gocritic
+  # - gochecknoglobals
+  # - gochecknoinits
+  # - gocognit
+  # - godot
+  # - godox
+  # - goerr113
+  # - interfacer
+  # - maligned
+  # - nestif
+  # - prealloc
+  # - testpackage
+  # - revive
+  # - wsl
+  
